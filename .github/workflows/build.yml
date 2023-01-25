@@ -14,12 +14,6 @@ jobs:
       - name: Install modules
         run: npm install
 
-      - name: Install pkg
-        run: npm install -g pkg
-
-      - name: Create package
-        run: npm run pkg
-
       - name: Push codes
         run: |
           git config --global user.name 'rosiewingit' 
