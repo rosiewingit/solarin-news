@@ -23,6 +23,6 @@ axios
   })
   .then((response) => {
     console.log(response.data);
-    const newResultFile = resolve("data", "newsResult.json");
+    const newResultFile = resolve(__dirname, "data", "newsResult.json");
     fs.writeFileSync(newResultFile, JSON.stringify(response.data));
   });
