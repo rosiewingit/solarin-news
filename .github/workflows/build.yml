@@ -1,0 +1,39 @@
+name: Build
+on:
+  # schedule:
+  #   - cron: "0 5 * * 1-5"
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - name: Checkout codes
+        uses: actions/checkout@v2
+
+        - name: Use nodejs ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install modules
+        run: npm install
+
+      - name: Install pkg
+        run: npm install -g pkg
+
+      - name: Create package
+        run: npm run pkg
+
+      - name: Push codes
+        run:  |
+          git config --global user.name 'rosiewingit' 
+          git config --global user.email 'rosiewingit@gmail.com'
+          git add -A
+          git commit -m 'Automated commit by github action'
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTOCI }}
