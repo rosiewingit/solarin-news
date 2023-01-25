@@ -7,15 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout codes
         uses: actions/checkout@v2
-
-        - name: Use nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.0
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Install modules
         run: npm install
@@ -27,7 +21,7 @@ jobs:
         run: npm run pkg
 
       - name: Push codes
-        run:  |
+        run: |
           git config --global user.name 'rosiewingit' 
           git config --global user.email 'rosiewingit@gmail.com'
           git add -A
