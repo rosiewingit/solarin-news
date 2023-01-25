@@ -4,6 +4,7 @@ const { resolve } = require("path");
 
 const client_id = "NHX1Ki0kj0raL_reCTES";
 const client_secret = "gx_JGJbox6";
+const dataDirectory = "data";
 const apiUrl = `https://openapi.naver.com/v1/search/news`;
 
 axios
@@ -23,6 +24,7 @@ axios
   })
   .then((response) => {
     console.log(response.data);
-    const newResultFile = resolve(__dirname, "data", "newsResult.json");
+    !fs.existsSync(dataDirectory) && fs.mkdirSync(dataDirectory);
+    const newResultFile = resolve(dataDirectory, "newsResult.json");
     fs.writeFileSync(newResultFile, JSON.stringify(response.data));
   });
