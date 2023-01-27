@@ -1,9 +1,7 @@
 name: Build
 on:
-  # schedule:
-  #   - cron: "0 5 * * 1-5"
-  push:
-    branches: [main]
+  schedule:
+    - cron: "0 5 * * 1-5"
 jobs:
   build:
     runs-on: ubuntu-latest
