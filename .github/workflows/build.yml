@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
 
       - name: Install modules
         run: npm install
@@ -19,11 +22,12 @@ jobs:
 
       - name: Commit codes
         run: |
-          git config --global user.name 'rosiewingit' 
-          git config --global user.email 'rosiewingit@gmail.com'
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add -A
-          git commit -m 'Automated commit by github'
+          git commit -a -m 'Automated commit by github'
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.AUTOCI }}
+          branch: ${{ github.ref }}
