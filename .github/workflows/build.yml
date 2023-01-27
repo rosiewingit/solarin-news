@@ -17,12 +17,13 @@ jobs:
       - name: Run node
         run: npm run start
 
-      - name: Push codes
+      - name: Commit codes
         run: |
           git config --global user.name 'rosiewingit' 
           git config --global user.email 'rosiewingit@gmail.com'
           git add -A
           git commit -m 'Automated commit by github'
-          git push origin main
-        env:
-          GH_TOKEN: ${{ secrets.AUTOCI }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.AUTOCI }}
